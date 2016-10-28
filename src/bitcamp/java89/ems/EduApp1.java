@@ -19,7 +19,7 @@ public class EduApp1 {
 // 그냥 break만 했을 때는 while 문만 나갈 수 있음.
   loop :
   while (true) {
-    System.out.print("명령> ");
+    System.out.print("명령 > ");
     // String command = keyScan.nextLine(); // 명령창 띄우기
     // keyScan.nextLine()가 리턴한 값은 스트링 값. 스트링 주소로 호출, 따라서!
     String command = keyScan.nextLine().toLowerCase(); // 이렇게 줄일 수 있음.

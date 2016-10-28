@@ -14,7 +14,7 @@ public class EduApp0 {
   }
 
   static void controler() {
-  System.out.println("명령> ");
+  System.out.println("명령 > ");
   quit :switch (keyScan.nextLine()) {
     case "add" :
     inTeacherInfo();
