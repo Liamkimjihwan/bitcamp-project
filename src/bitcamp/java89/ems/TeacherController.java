@@ -1,22 +1,41 @@
 package bitcamp.java89.ems;
 import java.util.Scanner; // 만약 여기 Scanner가 없으면 java.util 스캐너를 찾아가라 라는 뜻.
 public class TeacherController {
-  Teacher[] teachers = new Teacher[100];
+  // 아래 인스턴스 변수들은 외부에서 사용할 일이 없기 때문에 접근 제한시킴.
+  private Teacher[] teachers = new Teacher[100];
   // teachers <= 이것은 이제 인스턴스 변수로 변함
-  int length = 0;
-  Scanner keyScan;
+  private int length = 0;
+  private Scanner keyScan;
 
-// 기본 생성자가 없다.
-// 따라서 이 클래스를 사용하려면 반드시 Scanner를 줘야 한다. 생성자.
-// 즉, 생성자에서 하는 일은 그 객체를 사용하기 전에 유효 값으로 채우는 것.
 
-  public TeacherController(Scanner keyScan) {
+
+  public TeacherController(Scanner keyScan) { // 생성자
     this.keyScan = keyScan;
   }
 
+  public void Service() { // loop 사용자로부터
+    loop :
+     while (true) {
+      System.out.print("강사관리> ");
+      String command = keyScan.nextLine().toLowerCase();
 
-  public void doList() { // 공유할거기 때문에 파라미터 없어도 됨. static이기 때문에 static 변수 공유
-    for (int i = 0; i < this.length; i++) { // 인스턴스 length에 접근하기 위해
+      switch (command) {
+        case "add": this.doAdd(); break; // 컨트롤러 파일 안에 있기 때문에
+        case "list": this.doList(); break;
+        case "view": this.doview(); break;
+        case "delete": this.doDelete(); break;
+        case "update": this.doUpdate(); break;
+        case "main":
+          break loop;
+       default:
+         System.out.println("지원하지 않는 명령어입니다.");
+      }
+    }
+
+  }
+// 아래의 doxxx() 메서드들은 오직 내부에서만 (Service()) 호출하기 떄문에 private으로 접근제한
+  private void doList() {
+    for (int i = 0; i < this.length; i++) {
       Teacher teacher = this.teachers[i];
       System.out.printf(" %s,%s,%d,%s,%s,%s,%s,%s\n",
         teacher.name,
@@ -29,7 +48,7 @@ public class TeacherController {
         teacher.tel);
  }
 }
-public void doAdd() {
+private void doAdd() {
 
 while (length < this.teachers.length) { // this = 티처컨트롤러 객체 3개
  Teacher teacher = new Teacher(); // 반복문이 돌때마다 새로 생성됨.
@@ -64,7 +83,7 @@ while (length < this.teachers.length) { // this = 티처컨트롤러 객체 3개
  }
 
 }
-public void doDelete() {
+private void doDelete() {
  System.out.print("삭제할 이름은? ");
   String name = this.keyScan.nextLine().toLowerCase();
 
@@ -81,7 +100,7 @@ public void doDelete() {
  }
     System.out.printf("%s 학생을 찾을 수 없습니다.", name);
   }
-  public void doUpdate() {
+  private void doUpdate() {
    System.out.print("변경할 강사의 이름은? ");
     String name = this.keyScan.nextLine().toLowerCase();
      for (int i = 0; i < this.length; i++) { // i번째
@@ -126,7 +145,7 @@ public void doDelete() {
     }
 }
 
-public void doview() {
+private void doview() {
  System.out.println("조회할 강사 이름은? ");
   String name = this.keyScan.nextLine().toLowerCase();
    for (int i = 0; i < this.length; i++) { // i번째
