@@ -122,8 +122,8 @@ public void doDelete() {
 
 
       }
+      System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
     }
-    System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
 }
 
 public void doview() {
@@ -141,8 +141,8 @@ public void doview() {
       System.out.printf("전화번호: %s\n", this.teachers[i].tel);
     break;
   }
+  System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
 }
-    System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
 
 }
 }
