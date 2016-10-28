@@ -1,4 +1,4 @@
-package bitcamp.java89.ems;
+package step09.ex03;
 
 public class Teacher { // 새로운 클래스 설정
    // 인스턴스 변수
