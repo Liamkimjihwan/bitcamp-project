@@ -1,15 +1,23 @@
 package bitcamp.java89.ems;
 import java.util.Scanner; // 만약 여기 Scanner가 없으면 java.util 스캐너를 찾아가라 라는 뜻.
 public class TeacherController {
-  static Teacher[] teachers = new Teacher[100]; //★ teacher 100개를 담을 레퍼런스
-  static int length = 0;
-  static Scanner keyScan; // eduapp에서도 여기서도 사용해야 하기 떄문에 선언.
+  Teacher[] teachers = new Teacher[100];
+  // teachers <= 이것은 이제 인스턴스 변수로 변함
+  int length = 0;
+  Scanner keyScan;
 
-  // dolist add view를 사용하려면 keyScan
+// 기본 생성자가 없다.
+// 따라서 이 클래스를 사용하려면 반드시 Scanner를 줘야 한다. 생성자.
+// 즉, 생성자에서 하는 일은 그 객체를 사용하기 전에 유효 값으로 채우는 것.
 
-  static void doList() { // 공유할거기 때문에 파라미터 없어도 됨. static이기 때문에 static 변수 공유
-    for (int i = 0; i < length; i++) {
-      Teacher teacher = teachers[i];
+  public TeacherController(Scanner keyScan) {
+    this.keyScan = keyScan;
+  }
+
+
+  public void doList() { // 공유할거기 때문에 파라미터 없어도 됨. static이기 때문에 static 변수 공유
+    for (int i = 0; i < this.length; i++) { // 인스턴스 length에 접근하기 위해
+      Teacher teacher = this.teachers[i];
       System.out.printf(" %s,%s,%d,%s,%s,%s,%s,%s\n",
         teacher.name,
         teacher.gender,
@@ -21,55 +29,55 @@ public class TeacherController {
         teacher.tel);
  }
 }
-static void doAdd() {
+public void doAdd() {
 
-while (length < teachers.length) {
+while (length < this.teachers.length) { // this = 티처컨트롤러 객체 3개
  Teacher teacher = new Teacher(); // 반복문이 돌때마다 새로 생성됨.
   System.out.print("이름(예:홍길동)? ");
-   teacher.name = keyScan.nextLine();
+   teacher.name = this.keyScan.nextLine();
 
   System.out.print("성별? ");
-   teacher.gender = keyScan.nextLine();
+   teacher.gender = this.keyScan.nextLine();
 
   System.out.print("나이? ");
-   teacher.age = Integer.parseInt(keyScan.nextLine());
+   teacher.age = Integer.parseInt(this.keyScan.nextLine());
 
   System.out.print("경력(예:20년차)? ");
-   teacher.career = keyScan.nextLine();
+   teacher.career = this.keyScan.nextLine();
 
   System.out.print("능력? ");
-   teacher.skill = keyScan.nextLine();
+   teacher.skill = this.keyScan.nextLine();
 
   System.out.print("전공? ");
-   teacher.major = keyScan.nextLine();
+   teacher.major = this.keyScan.nextLine();
 
   System.out.print("이메일(예:hong@test.com)? ");
-   teacher.email = keyScan.nextLine();
+   teacher.email = this.keyScan.nextLine();
 
   System.out.print("전화번호(예:010-1111-1111)? ");
-   teacher.tel = keyScan.nextLine();
+   teacher.tel = this.keyScan.nextLine();
 
-   teachers[length++] = teacher; // length 현재 값을 두는 것. 0은 변하지않음.
+   this.teachers[length++] = teacher; // length 현재 값을 두는 것. 0은 변하지않음.
     System.out.print("계속 입력하시겠습니까(y/n)?");
-     if (!keyScan.nextLine().equals("y")) // 키스캔에 입력된 값이 y와 같지않다면 if문 실행
+     if (!this.keyScan.nextLine().equals("y")) // 키스캔에 입력된 값이 y와 같지않다면 if문 실행
       break;
  }
 
 }
 
-static void doview() {
+public void doview() {
  System.out.println("조회할 강사 이름은? ");
-  String name = keyScan.nextLine().toLowerCase();
-   for (int i = 0; i < length; i++) { // i번째
-    if (teachers[i].name.toLowerCase().equals(name)) {
-      System.out.printf("이름: %s\n", teachers[i].name);
-      System.out.printf("성별: %s\n", teachers[i].gender);
-      System.out.printf("나이: %d\n", teachers[i].age);
-      System.out.printf("경력: %s\n", teachers[i].career);
-      System.out.printf("능력: %s\n", teachers[i].skill);
-      System.out.printf("전공: %s\n", teachers[i].major);
-      System.out.printf("이메일: %s\n", teachers[i].email);
-      System.out.printf("전화번호: %s\n", teachers[i].tel);
+  String name = this.keyScan.nextLine().toLowerCase();
+   for (int i = 0; i < this.length; i++) { // i번째
+    if (this.teachers[i].name.toLowerCase().equals(name)) {
+      System.out.printf("이름: %s\n", this.teachers[i].name);
+      System.out.printf("성별: %s\n", this.teachers[i].gender);
+      System.out.printf("나이: %d\n", this.teachers[i].age);
+      System.out.printf("경력: %s\n", this.teachers[i].career);
+      System.out.printf("능력: %s\n", this.teachers[i].skill);
+      System.out.printf("전공: %s\n", this.teachers[i].major);
+      System.out.printf("이메일: %s\n", this.teachers[i].email);
+      System.out.printf("전화번호: %s\n", this.teachers[i].tel);
     break;
   }
 }
