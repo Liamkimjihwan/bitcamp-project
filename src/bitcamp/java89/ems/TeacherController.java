@@ -64,6 +64,67 @@ while (length < this.teachers.length) { // this = 티처컨트롤러 객체 3개
  }
 
 }
+public void doDelete() {
+ System.out.print("삭제할 이름은? ");
+  String name = this.keyScan.nextLine().toLowerCase();
+
+   for (int i = 0; i < this.length; i++) { // i번째
+    if (this.teachers[i].name.toLowerCase().equals(name)) {
+      for (int x = i + 1; x < length; x++) {
+        this.teachers[i++] = this.teachers[x];
+      }
+      this.teachers[--length] = null;
+
+      System.out.printf("%s 학생 정보를 삭제하였습니다.\n", name);
+      return; //함수 실행을 종료한다. 현재 함수를 나가라
+   }
+ }
+    System.out.printf("%s 학생을 찾을 수 없습니다.", name);
+  }
+  public void doUpdate() {
+   System.out.print("변경할 강사의 이름은? ");
+    String name = this.keyScan.nextLine().toLowerCase();
+     for (int i = 0; i < this.length; i++) { // i번째
+      if (this.teachers[i].name.toLowerCase().equals(name)) {
+        Teacher teacher = new Teacher();
+        teacher.name = this.teachers[i].name;
+        System.out.print("성별? ");
+         teacher.gender = this.keyScan.nextLine();
+
+        System.out.print("나이? ");
+         teacher.age = Integer.parseInt(this.keyScan.nextLine());
+
+        System.out.print("경력(예:20년차)? ");
+         teacher.career = this.keyScan.nextLine();
+
+        System.out.print("능력? ");
+         teacher.skill = this.keyScan.nextLine();
+
+        System.out.print("전공? ");
+         teacher.major = this.keyScan.nextLine();
+
+        System.out.print("이메일(예:hong@test.com)? ");
+         teacher.email = this.keyScan.nextLine();
+
+        System.out.print("전화번호(예:010-1111-1111)? ");
+         teacher.tel = this.keyScan.nextLine();
+
+          System.out.print("저장 하시겠습니까(y/n)?");
+           if (this.keyScan.nextLine().equals("y")) {
+             this.teachers[i] = teacher;
+            break;
+          }
+          System.out.print("정말 취소하십니까(y/n)?");
+           if (this.keyScan.nextLine().equals("y")) {
+             System.out.println("변경을 취소하였습니다.");
+            return;
+         }
+
+
+      }
+    }
+    System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
+}
 
 public void doview() {
  System.out.println("조회할 강사 이름은? ");
@@ -81,5 +142,7 @@ public void doview() {
     break;
   }
 }
+    System.out.printf("%s 학생을 찾을 수 없습니다.\n", name);
+
 }
 }
